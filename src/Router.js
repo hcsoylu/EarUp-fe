@@ -8,12 +8,14 @@ import Register from "./pages/Register";
 import Layout from "./layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Leaderboard from "./pages/Leaderboard";
+import SideMenu from "./components/SideMenu";
 
 function Router() {
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, showSide } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
+      {showSide && <SideMenu />}
       <Switch>
         <Route exact path="/">
           {loggedIn === false ? <Login /> : <Home />}

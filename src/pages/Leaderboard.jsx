@@ -41,7 +41,7 @@ const LeaderBoard = () => {
             <img className="two" src={data && data[1].avatar} alt="" />
           </div>
         </div>
-        <div>
+        <div className="podium">
           <img
             src={podium}
             alt=""
@@ -128,8 +128,11 @@ const BoxLb = styled.div`
   padding-top: 30px;
   display: flex;
 
-  @media (max-width: 600px) {
+  @media (max-width: 440px) {
     flex-direction: column;
+    margin: 0;
+    padding: 30px;
+    width: 100%;
   }
 
   .left {
@@ -139,11 +142,25 @@ const BoxLb = styled.div`
     margin-right: 40px;
     margin-top: 5px;
 
+    @media (max-width: 440px) {
+      margin: 0;
+    }
+
+    .podium {
+      @media (max-width: 440px) {
+        margin-bottom: 80px;
+      }
+    }
+
     .img-container {
       display: flex;
       justify-content: space-around;
       padding-top: 50px;
       width: 100%;
+
+      @media (max-width: 440px) {
+        padding-top: 0;
+      }
 
       .w-1 {
         position: absolute;

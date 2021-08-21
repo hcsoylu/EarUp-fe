@@ -14,11 +14,10 @@ const Home = () => {
               Improve your ear fast and fun way with{" "}
               <span
                 style={{
-                  paddingBottom: "3px",
-                  borderBottom: "3px solid #ff6584",
+                  color: "#ff6584",
                 }}
               >
-                EarUp.{" "}
+                EarUp
               </span>
             </div>
           </div>
@@ -51,14 +50,32 @@ const HomeBox = styled.div`
     display: flex;
     width: 80%;
     margin: 50px auto;
+    @media (max-width: 440px) {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      flex-direction: column;
+    }
 
     .main-info {
       flex: 0.8;
       display: flex;
       align-items: center;
 
+      @media (max-width: 440px) {
+        flex: 1;
+        padding: 30px;
+      }
+
       .text-info {
         font-size: 48px;
+        font-weight: 700;
+        line-height: 1.5;
+
+        @media (max-width: 440px) {
+          font-size: 44px;
+          font-weight: 700;
+        }
       }
     }
 
@@ -66,6 +83,18 @@ const HomeBox = styled.div`
       flex: 1.2;
       display: flex;
       justify-content: center;
+
+      @media (max-width: 440px) {
+        flex: 1;
+        padding: 30px;
+      }
+
+      svg {
+        @media (max-width: 440px) {
+          height: 90%;
+          width: 90%;
+        }
+      }
     }
   }
 `;

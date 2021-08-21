@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 
 const Navbar = () => {
-  const { getLoggedIn, setUser } = useContext(AuthContext);
+  const { getLoggedIn, setUser, setShowSide } = useContext(AuthContext);
 
   const history = useHistory();
 
@@ -67,6 +67,21 @@ const Navbar = () => {
             Log out
           </button>
         </ul>
+        <div className="hamburger-menu" onClick={() => setShowSide(true)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+        </div>
       </div>
     </NavBox>
   );
@@ -87,18 +102,48 @@ const NavBox = styled.div`
     width: 80%;
     margin: 0 auto;
 
+    @media (max-width: 440px) {
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hamburger-menu {
+      @media (min-width: 440px) {
+        display: none;
+      }
+
+      svg {
+        @media (max-width: 440px) {
+          height: 30px;
+          width: 30px;
+        }
+      }
+    }
+
     .logo {
       color: #161617;
       font-weight: 900;
-      font-size: 20px;
+      font-size: 28px;
       cursor: pointer;
       text-decoration: none;
+
+      @media (max-width: 440px) {
+        width: 100%;
+        font-size: 28px;
+      }
     }
 
     ul {
       display: flex;
       align-items: center;
       margin-left: auto;
+
+      @media (max-width: 440px) {
+        display: none;
+      }
 
       span {
         margin-right: 15px;

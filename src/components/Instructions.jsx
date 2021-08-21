@@ -28,20 +28,21 @@ export default Instructions;
 
 const BoxIns = styled.div`
   width: 520px;
-  height: 200px;
-  padding: 20px;
+  padding: 50px 50px 50px 50px;
   background-color: #e6e6e6;
   border: 3px solid #3f3d56;
   border-radius: 15px;
   margin: 0 auto;
 
-  @media (max-width: 650px) {
+  @media (max-width: 440px) {
     width: 100%;
+    padding: 40px;
+    height: 40%;
   }
 
   h5 {
     text-align: left;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 600;
     padding-left: 25px;
     margin-bottom: 10px;
@@ -56,10 +57,11 @@ const BoxIns = styled.div`
     img {
       height: 20px;
       width: 20px;
+      transform: translate(-25px, -4px);
     }
 
     p {
-      font-size: 14px;
+      font-size: 16px;
       padding-left: 5px;
       font-weight: 600;
       line-height: 18px;

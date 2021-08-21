@@ -29,7 +29,7 @@ const PerfectPitch = () => {
         quizLevel,
         userId: user._id,
         questionsInfo: quiz,
-        score : score
+        score: score,
       };
 
       await axios.post("http://localhost:5000/pp", quizData);
@@ -42,7 +42,6 @@ const PerfectPitch = () => {
     console.log("heyy");
     if (quiz.length === 10) {
       sendQuizData();
-
     }
   }, [quiz.length]);
 
@@ -145,7 +144,11 @@ const PerfectPitch = () => {
               </div>
             )}
             {(answered || (!lastNote && !clickedNote)) && (
-              <div className="test-break">Click boombox for random note</div>
+              <div className="test-break">
+                <span>
+                  Click boombox <br /> for random note
+                </span>
+              </div>
             )}
             <QuizBar quiz={quiz} />
           </div>
@@ -212,25 +215,33 @@ const BoxPerfectPitch = styled.div`
     .select-level {
       margin: 40px 0;
 
+      @media (max-width: 440px) {
+        margin: 50px 0;
+      }
+
       label {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 500;
         margin-right: 15px;
       }
 
       select {
-        padding: 2px;
+        padding: 4px;
         border: 2px solid rgb(63 61 86);
         border-radius: 5px;
-        width: 200px;
+        width: 210px;
         outline: none;
+        @media (max-width: 440px) {
+          margin-top: 15px;
+        }
       }
     }
   }
 
   .test-break {
-    font-size: 24px;
-    margin-top: 100px;
+    margin-top: 80px;
+    font-size: 32px;
+    font-weight: 500;
   }
 
   .questions {

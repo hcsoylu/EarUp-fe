@@ -8,29 +8,39 @@ import "react-circular-progressbar/dist/styles.css";
 
 const PpEasy = () => {
   const { user } = useContext(AuthContext);
-  const [easyGame, setEasyGame] = useState([]);
+  const [hardGame, setHardGame] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [enough, setEnough] = useState(false);
+  const [pagi, setPagi] = useState(6);
 
   useEffect(() => {
-    const getEasyGame = async () => {
+    const getHardGame = async () => {
       try {
         const res = await axios.get(
           `http://localhost:5000/pp?userId=${user._id}&quizLevel=hard`
         );
-        console.log(res.data);
-        setEasyGame(res.data);
+        if (res.data.length > 6) {
+          setEnough(true);
+        }
+
+        setHardGame(
+          res.data
+            .reverse()
+            .slice(pagi - 6, pagi)
+            .reverse()
+        );
       } catch (error) {
         console.log(error);
       }
     };
-    getEasyGame();
-  }, [user._id]);
+    getHardGame();
+  }, [user._id, pagi]);
 
   let allData = [];
   let data = {};
 
-  for (let i = 0; i < easyGame.length; i++) {
+  for (let i = 0; i < hardGame.length; i++) {
     let id = "";
     let date = "";
     let quesC = 0;
@@ -49,48 +59,48 @@ const PpEasy = () => {
     let trueB = 0;
     let result = 0;
 
-    for (let j = 0; j < easyGame[i].questionsInfo.length; j++) {
-      id = easyGame[i]._id;
-      date = easyGame[i].createdAt;
-      if (easyGame[i].questionsInfo[j].trueAnswer === "C") {
+    for (let j = 0; j < hardGame[i].questionsInfo.length; j++) {
+      id = hardGame[i]._id;
+      date = hardGame[i].createdAt;
+      if (hardGame[i].questionsInfo[j].trueAnswer === "C") {
         quesC++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueC++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "D") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "D") {
         quesD++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueD++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "E") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "E") {
         quesE++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueE++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "F") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "F") {
         quesF++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueF++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "G") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "G") {
         quesG++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueG++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "A") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "A") {
         quesA++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueA++;
         }
       }
-      if (easyGame[i].questionsInfo[j].trueAnswer === "B") {
+      if (hardGame[i].questionsInfo[j].trueAnswer === "B") {
         quesB++;
-        if (easyGame[i].questionsInfo[j].isCorrect) {
+        if (hardGame[i].questionsInfo[j].isCorrect) {
           trueB++;
         }
       }
@@ -262,6 +272,61 @@ const PpEasy = () => {
           </div>
         </li>
       ))}
+      {enough && (
+        <div className="pagi">
+          <button
+            className={pagi === 6 && `disabled`}
+            style={{
+              borderRight: "1px solid #DEDEDE",
+              borderLeft: "1px solid #DEDEDE",
+              borderTop: "1px solid #DEDEDE",
+              borderBottom: "1px solid #DEDEDE",
+              borderTopLeftRadius: "8px",
+              borderBottomLeftRadius: "8px",
+            }}
+            disabled={pagi === 6}
+            onClick={() => setPagi((p) => p - 6)}
+          >
+            Previous
+          </button>
+          <button
+            className={pagi === 6 && `seven`}
+            style={{
+              borderRight: "1px solid #DEDEDE",
+              borderTop: "1px solid #DEDEDE",
+              borderBottom: "1px solid #DEDEDE",
+            }}
+            onClick={() => setPagi(6)}
+          >
+            1
+          </button>
+          <button
+            className={pagi === 12 && `twoseven`}
+            style={{
+              borderRight: "1px solid #DEDEDE",
+              borderTop: "1px solid #DEDEDE",
+              borderBottom: "1px solid #DEDEDE",
+            }}
+            onClick={() => setPagi(12)}
+          >
+            2
+          </button>
+          <button
+            className={pagi - 6 > hardGame.length && `disabled`}
+            style={{
+              borderTopRightRadius: "8px",
+              borderBottomRightRadius: "8px",
+              borderRight: "1px solid #DEDEDE",
+              borderTop: "1px solid #DEDEDE",
+              borderBottom: "1px solid #DEDEDE",
+            }}
+            disabled={pagi - 6 > hardGame.length}
+            onClick={() => setPagi((p) => p + 6)}
+          >
+            Later
+          </button>
+        </div>
+      )}
     </UlBox>
   );
 };
@@ -273,6 +338,40 @@ const UlBox = styled.div`
   padding: 0;
   margin: 20px 30px 0 0;
   position: relative;
+
+   .pagi{
+    text-align: center;
+    margin-top: 30px;
+
+    @media (max-width: 440px) {
+    margin-top: 15px  !important;
+  }
+  
+    .disabled {
+      cursor: not-allowed;
+    }
+    
+    .seven, .twoseven, .big , .small  {
+      background-color: #DEDEDE;   
+    }
+
+    
+
+   button {
+      background-color: #fff;
+      color: #1E87F2;
+      padding: 8px 15px;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+   }
+
+    span {
+      margin-right: 20px;
+    }
+  }
+
 
   .modal {
     position: absolute;

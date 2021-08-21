@@ -8,7 +8,7 @@ const PpStarter = ({ levelHandler, setLoading, setIsGameStarted }) => {
   return (
     <div>
       <div className="starter">
-        <h4>{`Welcome ${user.name}!`}</h4>
+        <h4 style={{ fontSize: "28px" }}>{`Welcome ${user.name}!`}</h4>
         <Instructions />
         <div className="select-level">
           <label htmlFor="game-level">Choose a level :</label>
