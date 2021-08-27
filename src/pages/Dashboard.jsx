@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
-import MajMin from "../components/dashboard/MajMin";
+
 import PpEasy from "../components/dashboard/PpEasy";
 import PpNormal from "../components/dashboard/PpNormal";
 import PpHard from "../components/dashboard/PpHard";
@@ -18,8 +18,6 @@ const Dashboard = () => {
   const [name, setName] = useState(user.name);
   const [surname, setSurname] = useState(user.surname);
   const [avatar, setAvatar] = useState(null);
-
-  console.log(name, surname);
 
   async function editUser(e) {
     e.preventDefault();
@@ -86,8 +84,8 @@ const Dashboard = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
                       height="16"
-                      fill="currentColor"
-                      class="bi bi-image"
+                      fillRule="currentColor"
+                      className="bi bi-image"
                       viewBox="0 0 16 16"
                     >
                       <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
@@ -171,7 +169,6 @@ const Dashboard = () => {
                 </div>
               </div>
             )}
-            {activeEx === typesEx[1] && <MajMin />}
           </div>
         </div>
       </div>

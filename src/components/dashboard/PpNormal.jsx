@@ -12,7 +12,7 @@ const PpEasy = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [pagi, setPagi] = useState(6);
-  const [enough, setEnough] = useState(false);
+  const [enough, setEnough] = useState(null);
 
   useEffect(() => {
     const getNormalGame = async () => {
@@ -23,6 +23,11 @@ const PpEasy = () => {
         if (res.data.length > 6) {
           setEnough(true);
         }
+
+        if (res.data.length > 11) {
+          setEnough(res.data.length);
+        }
+
         setNormalGame(
           res.data
             .reverse()
@@ -228,7 +233,7 @@ const PpEasy = () => {
       {enough && (
         <div className="pagi">
           <button
-            className={pagi === 6 && `disabled`}
+            className={pagi === 6 ? `disabled` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderLeft: "1px solid #DEDEDE",
@@ -243,7 +248,7 @@ const PpEasy = () => {
             Previous
           </button>
           <button
-            className={pagi === 6 && `seven`}
+            className={pagi === 6 ? `six` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderTop: "1px solid #DEDEDE",
@@ -254,7 +259,7 @@ const PpEasy = () => {
             1
           </button>
           <button
-            className={pagi === 12 && `twoseven`}
+            className={pagi === 12 ? `twosix` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderTop: "1px solid #DEDEDE",
@@ -265,7 +270,7 @@ const PpEasy = () => {
             2
           </button>
           <button
-            className={pagi - 6 > normalGame.length && `disabled`}
+            className={pagi + 1 > enough ? `disabled` : ""}
             style={{
               borderTopRightRadius: "8px",
               borderBottomRightRadius: "8px",
@@ -273,7 +278,7 @@ const PpEasy = () => {
               borderTop: "1px solid #DEDEDE",
               borderBottom: "1px solid #DEDEDE",
             }}
-            disabled={pagi - 6 > normalGame.length}
+            disabled={pagi + 1 > enough}
             onClick={() => setPagi((p) => p + 6)}
           >
             Later
@@ -305,7 +310,7 @@ const UlBox = styled.div`
       cursor: not-allowed;
     }
     
-    .seven, .twoseven, .big , .small  {
+    .six, .twosix, .big , .small  {
       background-color: #DEDEDE;   
     }
 

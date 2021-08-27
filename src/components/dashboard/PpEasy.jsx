@@ -12,7 +12,7 @@ const PpEasy = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [pagi, setPagi] = useState(6);
-  const [enough, setEnough] = useState(false);
+  const [enough, setEnough] = useState(null);
 
   useEffect(() => {
     const getEasyGame = async () => {
@@ -20,9 +20,15 @@ const PpEasy = () => {
         const res = await axios.get(
           `http://localhost:5000/pp?userId=${user._id}&quizLevel=easy`
         );
+
         if (res.data.length > 6) {
-          setEnough(true);
+          setEnough(res.data.length);
         }
+
+        if (res.data.length > 11) {
+          setEnough(res.data.length);
+        }
+
         setEasyGame(
           res.data
             .reverse()
@@ -103,30 +109,36 @@ const PpEasy = () => {
       {showModal && (
         <div className="modal">
           <div className="percent-box">
-            <div style={{ width: 100, height: 100 }}>
-              <CircularProgressbar
-                className="one"
-                value={percentC}
-                text={`${percentC}%`}
-              />
-              <h4>C</h4>
-            </div>
-            <div style={{ width: 100, height: 100 }}>
-              <CircularProgressbar
-                className="two"
-                value={percentD}
-                text={`${percentD}%`}
-              />
-              <h4>D</h4>
-            </div>
-            <div style={{ width: 100, height: 100 }}>
-              <CircularProgressbar
-                className="three"
-                value={percentE}
-                text={`${percentE}%`}
-              />
-              <h4>E</h4>
-            </div>
+            {selectedData?.quesC === 0 ? null : (
+              <div style={{ width: 100, height: 100 }}>
+                <CircularProgressbar
+                  className="one"
+                  value={percentC}
+                  text={`${percentC}%`}
+                />
+                <h4>C</h4>
+              </div>
+            )}
+            {selectedData?.quesD === 0 ? null : (
+              <div style={{ width: 100, height: 100 }}>
+                <CircularProgressbar
+                  className="two"
+                  value={percentD}
+                  text={`${percentD}%`}
+                />
+                <h4>D</h4>
+              </div>
+            )}
+            {selectedData?.quesE === 0 ? null : (
+              <div style={{ width: 100, height: 100 }}>
+                <CircularProgressbar
+                  className="three"
+                  value={percentE}
+                  text={`${percentE}%`}
+                />
+                <h4>E</h4>
+              </div>
+            )}
           </div>
           <div
             className="close-icon"
@@ -174,10 +186,10 @@ const PpEasy = () => {
         </li>
       ))}
 
-      {enough && (
+      {enough > 6 && (
         <div className="pagi">
           <button
-            className={pagi === 6 && `disabled`}
+            className={pagi === 6 ? `disabled` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderLeft: "1px solid #DEDEDE",
@@ -192,7 +204,7 @@ const PpEasy = () => {
             Previous
           </button>
           <button
-            className={pagi === 6 && `seven`}
+            className={pagi === 6 ? `six` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderTop: "1px solid #DEDEDE",
@@ -203,7 +215,7 @@ const PpEasy = () => {
             1
           </button>
           <button
-            className={pagi === 12 && `twoseven`}
+            className={pagi === 12 ? `twosix` : ""}
             style={{
               borderRight: "1px solid #DEDEDE",
               borderTop: "1px solid #DEDEDE",
@@ -214,7 +226,7 @@ const PpEasy = () => {
             2
           </button>
           <button
-            className={pagi - 6 > easyGame.length && `disabled`}
+            className={pagi + 1 > enough ? `disabled` : ""}
             style={{
               borderTopRightRadius: "8px",
               borderBottomRightRadius: "8px",
@@ -222,7 +234,7 @@ const PpEasy = () => {
               borderTop: "1px solid #DEDEDE",
               borderBottom: "1px solid #DEDEDE",
             }}
-            disabled={pagi - 6 > easyGame.length}
+            disabled={pagi + 1 > enough}
             onClick={() => setPagi((p) => p + 6)}
           >
             Later
@@ -254,7 +266,7 @@ const UlBox = styled.div`
       cursor: not-allowed;
     }
     
-    .seven, .twoseven, .big , .small  {
+    .six, .twosix, .big , .small  {
       background-color: #DEDEDE;   
     }
 

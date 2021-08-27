@@ -39,7 +39,6 @@ const PerfectPitch = () => {
   }
 
   useEffect(() => {
-    console.log("heyy");
     if (quiz.length === 10) {
       sendQuizData();
     }
