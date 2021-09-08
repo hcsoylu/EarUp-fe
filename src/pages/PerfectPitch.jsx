@@ -32,7 +32,7 @@ const PerfectPitch = () => {
         score: score,
       };
 
-      await axios.post("http://localhost:5000/pp", quizData);
+      await axios.post("https://earup.herokuapp.com/pp", quizData);
     } catch (error) {
       console.log(error);
     }

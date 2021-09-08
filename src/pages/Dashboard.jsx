@@ -36,7 +36,7 @@ const Dashboard = () => {
       editUserData.avatar = avatar;
 
       try {
-        await axios.put("http://localhost:5000/auth/me", data);
+        await axios.put("https://earup.herokuapp.com/auth/me", data);
         getUser();
         setEditProfile(false);
       } catch (error) {
@@ -45,7 +45,7 @@ const Dashboard = () => {
     }
 
     try {
-      await axios.put("http://localhost:5000/auth/me", editUserData);
+      await axios.put("https://earup.herokuapp.com/auth/me", editUserData);
       getUser();
       setEditProfile(false);
     } catch (err) {

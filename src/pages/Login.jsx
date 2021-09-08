@@ -23,7 +23,7 @@ const Login = () => {
         password,
       };
 
-      await axios.post("http://localhost:5000/auth/login", loginData);
+      await axios.post("https://earup.herokuapp.com/auth/login", loginData);
 
       await getLoggedIn();
 

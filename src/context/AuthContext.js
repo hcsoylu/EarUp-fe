@@ -9,12 +9,14 @@ function AuthContextProvider(props) {
   const [showSide, setShowSide] = useState(false);
 
   async function getLoggedIn() {
-    const LoggedInRes = await axios.get("http://localhost:5000/auth/loggedIn");
+    const LoggedInRes = await axios.get(
+      "https://earup.herokuapp.com/auth/loggedIn"
+    );
     setLoggedIn(LoggedInRes.data);
   }
 
   async function getUser() {
-    const res = await axios.get("http://localhost:5000/auth/me");
+    const res = await axios.get("https://earup.herokuapp.com/auth/me");
     setUser(res.data);
   }
 

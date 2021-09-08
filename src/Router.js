@@ -17,23 +17,26 @@ function Router() {
     <BrowserRouter>
       {showSide && <SideMenu />}
       <Switch>
-        <Route exact path="/">
-          {loggedIn === false ? <Login /> : <Home />}
+        <Route exact path="/login">
+          <Login />
         </Route>
-        <Route path="/register">
-          {loggedIn === false ? <Register /> : <Redirect to="/" />}
+        <Route exact path="/register">
+          {loggedIn === false ? <Register /> : <Redirect to="/login" />}
         </Route>
         {loggedIn === false ? (
-          <Redirect to="/" />
+          <Redirect to="/login" />
         ) : (
           <Layout>
-            <Route path="/pp">
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/pp">
               <PerfectPitch />
             </Route>
-            <Route path="/dashboard">
+            <Route exact path="/dashboard">
               <Dashboard />
             </Route>
-            <Route path="/leaderboard">
+            <Route exact path="/leaderboard">
               <Leaderboard />
             </Route>
           </Layout>

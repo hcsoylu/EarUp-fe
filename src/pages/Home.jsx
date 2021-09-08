@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import HomePageSvg from "../components/HomePageSvg";
 
@@ -7,7 +6,6 @@ const Home = () => {
   return (
     <HomeBox>
       <div className="wrapper">
-        <Navbar />
         <div className="main">
           <div className="main-info">
             <div className="text-info">
@@ -36,20 +34,24 @@ const Home = () => {
 export default Home;
 
 const HomeBox = styled.div`
-  height: 100vh;
+  height: calc(100vh - 60px);
 
   .copy {
     width: 80%;
     text-align: center;
-    margin: 0 auto;
+    margin: 50px auto;
     font-size: 14px;
     color: #505050;
+    @media (max-width: 440px) {
+      margin: 10px auto;
+    }
   }
 
   .main {
     display: flex;
     width: 80%;
-    margin: 50px auto;
+    margin: 0 auto;
+    padding-top: 50px;
     @media (max-width: 440px) {
       margin: 0;
       padding: 0;

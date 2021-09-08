@@ -24,7 +24,10 @@ const Register = () => {
         password,
       };
 
-      await axios.post("http://localhost:5000/auth/register", registerData);
+      await axios.post(
+        "https://earup.herokuapp.com/auth/register",
+        registerData
+      );
       history.push("/login");
     } catch (err) {
       console.log("error login", err.response);

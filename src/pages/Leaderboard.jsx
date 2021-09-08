@@ -11,7 +11,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     const getList = async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/auth/leaderboard/${show}`
+        `https://earup.herokuapp.com/auth/leaderboard/${show}`
       );
 
       setData(data);

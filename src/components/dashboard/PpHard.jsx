@@ -18,7 +18,7 @@ const PpEasy = () => {
     const getHardGame = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/pp?userId=${user._id}&quizLevel=hard`
+          `https://earup.herokuapp.com/pp?userId=${user._id}&quizLevel=hard`
         );
         if (res.data.length > 6) {
           setEnough(true);
