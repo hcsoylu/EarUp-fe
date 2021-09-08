@@ -29,7 +29,7 @@ const Login = () => {
 
       await getUser();
 
-      history.push("/");
+      history.push("/home");
     } catch (err) {
       console.log("error login", err.response);
       setErrorMsg(err.response.data.errorMessage);

@@ -14,13 +14,13 @@ const Navbar = () => {
     await getLoggedIn();
     setUser({});
 
-    history.push("/login");
+    history.push("/");
   }
 
   return (
     <NavBox>
       <div className="wrapper">
-        <Link className="logo" to="/">
+        <Link className="logo" to="/home">
           EarUp
         </Link>
 

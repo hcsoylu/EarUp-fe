@@ -17,17 +17,17 @@ function Router() {
     <BrowserRouter>
       {showSide && <SideMenu />}
       <Switch>
-        <Route exact path="/login">
-          <Login />
+        <Route exact path="/">
+          {!loggedIn ? <Login /> : <Redirect to="/home" />}
         </Route>
         <Route exact path="/register">
-          {loggedIn === false ? <Register /> : <Redirect to="/login" />}
+          {loggedIn === false ? <Register /> : <Redirect to="/" />}
         </Route>
         {loggedIn === false ? (
-          <Redirect to="/login" />
+          <Redirect to="/" />
         ) : (
           <Layout>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Home />
             </Route>
             <Route exact path="/pp">
